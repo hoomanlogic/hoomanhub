@@ -1,0 +1,19 @@
+{% extends "planner/base_planner.html" %}
+
+{% block content %}
+{{ block.super }}
+<table>
+    <thead>
+        <th>Action</th>
+        <th>Status</th>
+    </thead>
+    <tbody>
+        {% for action in object_list %}
+        <tr>
+            <td>{{ action.name }}</td>
+            <td>{{ action.statusdesc }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

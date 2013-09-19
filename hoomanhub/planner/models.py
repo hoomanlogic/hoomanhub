@@ -49,6 +49,9 @@ class TimeStampedModel(models.Model):
 class UniquelyNamedModel(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
+    def __unicode__(self):
+        return self.name
+
     class Meta:
         abstract = True
 
@@ -57,6 +60,21 @@ class UniquelyNamedModel(models.Model):
 # Models
 #=======================================================================================================================
 class Action(TimeStampedModel, UniquelyNamedModel, ArchiveableModel, DocumentableModel, TaggableModel):
+    STATUS = ((0, 'CURRENT'), (1, 'FUTURE'), (2, 'COMPLETE'))
+    status = models.PositiveIntegerField(choices=STATUS, default=0)
+
+    def get_absolute_url(self):
+        return reverse('action-detail', kwargs={'pk': self.pk})
+
+    @property
+    def statusdesc(self):
+        if self.status == 0:
+            return 'Current'
+        elif self.status == 1:
+            return 'Future'
+        elif self.status == 2:
+            return 'Complete'
+        return ''
 
     @property
     def total_executions(self):
@@ -95,6 +113,10 @@ class Tag(TimeStampedModel, ArchiveableModel, DocumentableModel):
     TAG_TYPE = ((0, 'standard'), (1, 'focus'), (2, 'reason'), (3, 'need'), (4, 'plan'))
     name = models.CharField(max_length=20, unique=True)
     parent = models.ForeignKey('self', blank=True, null=True)
+    type = models.PositiveIntegerField(choices=TAG_TYPE, default=0)
+
+    def __unicode__(self):
+        return self.name
 
 
 class Target(TimeStampedModel, ArchiveableModel):
@@ -381,3 +403,33 @@ class Execution(models.Model):
     action = models.ForeignKey('Action')
     percentage = models.SmallIntegerField()
     minutes = models.PositiveIntegerField()
+
+
+class Phase(TimeStampedModel, UniquelyNamedModel, ArchiveableModel, DocumentableModel, TaggableModel):
+    # uses dateutil.rrule freq, dtstart=None,
+    #                 interval=1, wkst=None, count=None, until=None, bysetpos=None,
+    #                 bymonth=None, bymonthday=None, byyearday=None, byeaster=None,
+    #                 byweekno=None, byweekday=None,
+    #                 byhour=None, byminute=None, bysecond=None
+    FREQUENCY = ((0, "YEARLY"), (1, "MONTHLY"), (2, "WEEKLY"), (3, "DAILY"), (4, "HOURLY"), (5, "MINUTELY"),
+                 (6, "SECONDLY"))
+    freq = models.PositiveSmallIntegerField(choices=FREQUENCY)
+    dtstart = models.DateField()
+    interval = models.PositiveIntegerField(default=1)
+    until = models.DateField(blank=True, null=True)
+    count = models.PositiveIntegerField(blank=True, null=True)
+    bysetpos = models.CommaSeparatedIntegerField(max_length=100, blank=True, null=True)
+    bymonth = models.CommaSeparatedIntegerField(max_length=100, blank=True, null=True)
+    bymonthday = models.CommaSeparatedIntegerField(max_length=100, blank=True, null=True)
+    byyearday = models.CommaSeparatedIntegerField(max_length=100, blank=True, null=True)
+    byweekno = models.CommaSeparatedIntegerField(max_length=100, blank=True, null=True)
+    byweekday = models.CommaSeparatedIntegerField(max_length=100, blank=True, null=True)
+    byhour = models.CommaSeparatedIntegerField(max_length=100, blank=True, null=True)
+    byminute = models.CommaSeparatedIntegerField(max_length=100, blank=True, null=True)
+    bysecond = models.CommaSeparatedIntegerField(max_length=100, blank=True, null=True)
+    timefrom = models.PositiveIntegerField(blank=True, null=True)
+    timeto = models.PositiveIntegerField(blank=True, null=True)
+
+
+class Cycle(TimeStampedModel, UniquelyNamedModel, DocumentableModel):
+    phases = models.ManyToManyField('Phase', blank=True)

@@ -1,0 +1,28 @@
+{# simple base.html #}
+{% load staticfiles %}
+<html>
+<head>
+    <title>{% block title %}HoomanHub{% endblock title %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}" />
+        <link rel="stylesheet" type="text/css" href="{% static "css/normalize.css" %}" />
+    {% endblock stylesheets %}
+</head>
+<body>
+    <div class="search">
+        {% block search %}
+
+        {% endblock search %}
+    </div>
+    <h1 class="heading">
+        {% block heading %}
+
+        {% endblock heading %}
+    </h1>
+    <div class="content">
+        {% block content %}
+
+        {% endblock content %}
+    </div>
+</body>
+</html>
