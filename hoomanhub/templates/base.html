@@ -1,28 +1,84 @@
 {# simple base.html #}
 {% load staticfiles %}
-<html>
-<head>
-    <title>{% block title %}HoomanHub{% endblock title %}</title>
-    {% block stylesheets %}
-        <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}" />
-        <link rel="stylesheet" type="text/css" href="{% static "css/normalize.css" %}" />
-    {% endblock stylesheets %}
-</head>
-<body>
-    <div class="search">
-        {% block search %}
+<DOCTYPE html/>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}HoomanHub{% endblock title %}</title>
+        <link rel="stylesheet" href="{% static "css/bootstrap.css" %}" />
+        <link rel="stylesheet" href="{% static "css/base.css" %}" />
+        {% block stylesheets %}
 
-        {% endblock search %}
-    </div>
-    <h1 class="heading">
-        {% block heading %}
+        {% endblock stylesheets %}
+    </head>
+    <body>
+        <div class="container">
+            <!-- main navigation -->
+            <div id="mainnav" class="navbar navbar-inverse">
+                <div id="mainnavinner" class="navbar-inner">
+                    <a class="brand" href="/hoomanhub/"><b class="green">hooman</b><b class="gray">hub</b></a>
+                    <ul class="nav">
+                        <li class="divider-vertical"></li>
+                        <li id="plan"><a href="/hoomanhub/plan/">Plan</a></li>
+                        <li class="divider-vertical"></li>
+                        <li id="do"><a href="/hoomanhub/do/">Do</a></li>
+                        <li class="divider-vertical"></li>
+                        <li id="monitor"><a href="/hoomanhub/monitor/">Monitor</a></li>
+                        <li class="divider-vertical"></li>
+                        <li id="connect"><a href="/hoomanhub/connect/">Connect</a></li>
+                        <li class="divider-vertical"></li>
+                    </ul>
+                    <form class="navbar-search pull-right">
+                        <input type="text" class="search-query" placeholder="Search">
+                    </form>
+                </div>
+            </div>
 
-        {% endblock heading %}
-    </h1>
-    <div class="content">
-        {% block content %}
+            <!-- messages block -->
+            <div class="messages">
+            {% block messages %}
+                {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <li id="message_{{ forloop.counter }}"
+                        {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                        {{  message }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            {% endblock messages %}
+            </div>
 
-        {% endblock content %}
-    </div>
-</body>
+
+
+            <!-- sub-navigation block -->
+            {% block subnav %}
+
+            {% endblock %}
+
+            <!-- content block -->
+            <div class="content-container container">
+
+                <!-- content heading block -->
+                <h1 class="heading">
+                {% block heading %}
+
+                {% endblock heading %}
+                </h1>
+                <div class="content">
+                {% block content %}
+
+                {% endblock content %}
+                </div>
+            </div>
+        </div>
+
+        <!-- javascript placed at the end of the document so the pages load faster -->
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="{% static "js/bootstrap.js" %}"></script>
+        {% block jscript %}
+
+        {% endblock jscript %}
+    </body>
 </html>

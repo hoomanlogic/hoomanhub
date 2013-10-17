@@ -59,9 +59,16 @@ class UniquelyNamedModel(models.Model):
 #=======================================================================================================================
 # Models
 #=======================================================================================================================
+class Profile(TimeStampedModel):
+    registered_email = models.EmailField()
+
+
 class Action(TimeStampedModel, UniquelyNamedModel, ArchiveableModel, DocumentableModel, TaggableModel):
     STATUS = ((0, 'CURRENT'), (1, 'FUTURE'), (2, 'COMPLETE'))
     status = models.PositiveIntegerField(choices=STATUS, default=0)
+    #imgheight = models.IntegerField(blank=True, null=True)
+    #imgwidth = models.IntegerField(blank=True, null=True)
+    #imgurl = models.URLField(blank=True, null=True)
 
     def get_absolute_url(self):
         return reverse('action-detail', kwargs={'pk': self.pk})
@@ -93,6 +100,7 @@ class Decision(TimeStampedModel):
     conditions = models.TextField()
 
 
+# Share Tags: #tinyadventure: estimated time,
 class Flow(TimeStampedModel, UniquelyNamedModel, ArchiveableModel, DocumentableModel, TaggableModel):
     FLOW_TYPE = ((0, 'queue'), (1, 'block'), (2, 'option'), (3, 'factory'), (4, 'routine'))
     flow_type = models.PositiveSmallIntegerField(choices=FLOW_TYPE)
@@ -117,6 +125,17 @@ class Tag(TimeStampedModel, ArchiveableModel, DocumentableModel):
 
     def __unicode__(self):
         return self.name
+
+
+class Block(TimeStampedModel, UniquelyNamedModel, ArchiveableModel, DocumentableModel):
+    pass
+
+
+class BlockTag(TimeStampedModel):
+    FILTER_TYPE = ((0, 'exclude'), (1, 'include'))
+    block = models.ForeignKey('Block')
+    tag = models.ForeignKey('Tag')
+    filter = models.PositiveSmallIntegerField(choices=FILTER_TYPE)
 
 
 class Target(TimeStampedModel, ArchiveableModel):
@@ -401,8 +420,8 @@ class Execution(models.Model):
     root_flow = models.ForeignKey('Flow', related_name='root_executions', blank=True, null=True)
     parent_flow = models.ForeignKey('Flow', related_name='parent_executions', blank=True, null=True)
     action = models.ForeignKey('Action')
-    percentage = models.SmallIntegerField()
-    minutes = models.PositiveIntegerField()
+    percentage = models.SmallIntegerField(default=100)
+    minutes = models.PositiveIntegerField(default=0)
 
 
 class Phase(TimeStampedModel, UniquelyNamedModel, ArchiveableModel, DocumentableModel, TaggableModel):

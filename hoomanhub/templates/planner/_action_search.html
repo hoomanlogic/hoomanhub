@@ -1,8 +1,0 @@
-{# templates/planner/_action_search.html #}
-{%  comment %}
-    Usage: {% include "planner/_action_search.html" %}
-{%  endcomment %}
-<form action="{%  url "planner:action_list" %}" method="GET">
-    <input type="text" name="q" />
-    <button type="submit">search</button>
-</form>

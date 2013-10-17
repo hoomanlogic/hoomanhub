@@ -1,0 +1,12 @@
+{% extends "plan/base.html" %}
+{% block title %}New Action{% endblock title %}
+{% block heading %}Add A New Action{% endblock %}
+
+{% block content %}
+{{ block.super }}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save">
+</form>
+{% endblock content %}

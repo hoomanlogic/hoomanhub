@@ -1,0 +1,103 @@
+@import url(http://fonts.googleapis.com/css?family=Squada+One);
+@import url(http://fonts.googleapis.com/css?family=Scada);
+
+/* background of site */
+body {
+    background-image: url("../img/background.png");
+}
+
+/* text styling, "Helvetica Neue", Helvetica, Arial, sans-serif */
+a.brand {
+    margin-top: 0em;
+    line-height: 1.1em;
+}
+
+a.brand, .nav a {
+    font-family: "Scada";
+}
+
+.navbar-search {
+    padding-top: 0.4em;
+}
+
+.brand b.green {
+        margin: 1em 0 0 0;
+    padding: 0 0 0 0;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+    font-size: 2em;
+}
+
+.brand b.gray {
+        margin: 1em 0 0 0;
+    padding: 0 0 0 0;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    font-size: 2em;
+}
+
+.green {
+    color: #81981d;
+}
+
+.gray {
+    color: #777;
+}
+
+/* elements */
+.content-container {
+    width: 100%;
+    background: linear-gradient(white, ghostwhite);
+    color: #111111;
+    border-radius: 12px;
+    padding: 0;
+    margin: 0;
+}
+
+.content {
+    margin: 1em;
+}
+
+/* classes */
+.navbar .divider-vertical {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+.nav li {
+    font-weight: normal;
+    font-size: 1.333em;
+}
+
+.nav li.active {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.search-query {
+    height: 10px;
+}
+
+.heading {
+    color: #777;
+    font-size: 2em;
+    line-height: 20px;
+    padding: 0.3em;
+    border: 1px solid #d4d4d4;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-left: 0.3em;
+    margin-right: 0.3em;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff2f2f2', GradientType=0);
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+
+    background-color: #1b1b1b;
+    background-image: -moz-linear-gradient(top, #222222, #111111);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#222222), to(#111111));
+    background-image: -webkit-linear-gradient(top, #222222, #111111);
+    background-image: -o-linear-gradient(top, #222222, #111111);
+    background-image: linear-gradient(to bottom, #222222, #111111);
+    background-repeat: repeat-x;
+    border-color: #252525;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222', endColorstr='#ff111111', GradientType=0);
+}

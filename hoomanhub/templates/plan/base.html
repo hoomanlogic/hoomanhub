@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}HoomanHub - Plan{% endblock title %}
+
+{%  block search %}
+    {% include "plan/_action_search.html" %}
+{%  endblock %}
+
+{% block stylesheets %}
+
+    <style>
+        .content-container {
+            width: 84%;
+            display: inline-block;
+            margin-left: 1%;
+        }
+
+        .subnav {
+            width: 15%;
+            float: left;
+            display: inline-block;
+        }
+    </style>
+
+{%  endblock %}
+
+{% block jscript %}
+    <script>
+
+        $( document ).ready(function() {
+            $( "#plan").addClass('active');
+        });
+
+    </script>
+{%  endblock %}
+
+{% block subnav %}
+    <div class="subnav">
+        <ul class="nav nav-list">
+            <li class="nav-header">Actions</li>
+            <li><a href="/hoomanhub/plan/action/add/">Add Action</a></li>
+            <li><a href="/hoomanhub/plan/action/list">View Actions</a></li>
+            <li class="nav-header">Flows</li>
+            <li><a href="/hoomanhub/plan/flow/add/">Add Flow</a></li>
+            <li><a href="/hoomanhub/plan/flow/list">View Flows</a></li>
+            <li class="nav-header">Phases</li>
+            <li><a href="/hoomanhub/plan/flow/add/">Add Phase</a></li>
+            <li><a href="/hoomanhub/plan/flow/list">View Phases</a></li>
+            <li class="nav-header">Tags</li>
+            <li><a href="/hoomanhub/plan/tag/add/">Add Tag</a></li>
+            <li><a href="/hoomanhub/plan/tag/list">View Tags</a></li>
+        </ul>
+    </div>
+{% endblock %}
