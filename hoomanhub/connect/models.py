@@ -1,60 +1,9 @@
 from django.db import models
 from datetime import timedelta, datetime, date
-from hoomanhub.control.models import Hooman
 
-
-#=======================================================================================================================
-# Abstracts
-#=======================================================================================================================
-class ArchiveableModel(models.Model):
-    archived_on = models.DateField(blank=True, null=True)
-
-    @property
-    def is_archived(self):
-        if self.archived_on is None:
-            return False
-        elif self.archived_on is not None and datetime.today().date() < self.archived_on:
-            return False
-        else:
-            return True
-
-    class Meta:
-        abstract = True
-
-
-class DocumentableModel(models.Model):
-    NOTES_TYPE = ((0, 'plaintext'), (1, 'uri'), (2, 'html'), (3, 'rst'))
-    docs = models.TextField(blank=True, null=True)
-    docs_type = models.PositiveSmallIntegerField(choices=NOTES_TYPE, default=0)
-
-    class Meta:
-        abstract = True
-
-
-class TaggableModel(models.Model):
-    tags = models.ManyToManyField('Tag', blank=True)
-
-    class Meta:
-        abstract = True
-
-
-class TimeStampedModel(models.Model):
-    """An abstract base class model that provides self-updating 'created' and 'modified' fields."""
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        abstract = True
-
-
-class UniquelyNamedModel(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        abstract = True
+from core.models import TimeStampedModel
+from control.models import Hooman
+from plan.models import Flow
 
 
 #=======================================================================================================================
@@ -63,17 +12,17 @@ class UniquelyNamedModel(models.Model):
 class FlowRating(TimeStampedModel):
     hooman = models.ForeignKey(Hooman, related_name='flow_ratings')
     rating = models.FloatField()
-    flow = models.ForeignKey('Flow', related_name='flow_ratings')
+    flow = models.ForeignKey(Flow, related_name='flow_ratings')
 
 
 class Story(TimeStampedModel):
-    hooman = models.ForeignKey('Hooman', related_name='stories')
+    hooman = models.ForeignKey(Hooman, related_name='stories')
     content = models.TextField()
-    flow = models.ForeignKey('Flow', related_name='stories', blank=True, null=True)
+    flow = models.ForeignKey(Flow, related_name='stories', blank=True, null=True)
 
 
 class Comment(TimeStampedModel):
-    hooman = models.ForeignKey('Hooman', related_name='comments')
-    story = models.ForeignKey('Story', )
+    hooman = models.ForeignKey(Hooman, related_name='comments')
+    story = models.ForeignKey(Story, )
     parent = models.ForeignKey('self', blank=True, null=True)
     content = models.TextField()
