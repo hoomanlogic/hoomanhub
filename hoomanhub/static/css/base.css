@@ -6,9 +6,19 @@ body {
     background-image: url("../img/background.png");
 }
 
+div.content {
+    font-size: 1.2em;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+#user-settings {
+    float: right;
+}
+
 /* text styling, "Helvetica Neue", Helvetica, Arial, sans-serif */
 a.brand {
-    margin-top: 0em;
+    margin-top: 0.3em;
     line-height: 1.1em;
 }
 
@@ -21,14 +31,14 @@ a.brand, .nav a {
 }
 
 .brand b.green {
-        margin: 1em 0 0 0;
+    margin: 1em 0 0 0;
     padding: 0 0 0 0;
     text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
     font-size: 2em;
 }
 
 .brand b.gray {
-        margin: 1em 0 0 0;
+    margin: 1em 0 0 0;
     padding: 0 0 0 0;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     font-size: 2em;
@@ -72,12 +82,8 @@ a.brand, .nav a {
     font-size: 1.5em;
 }
 
-.search-query {
-    height: 10px;
-}
-
 .heading {
-    color: #777;
+    color: #81981d;
     font-size: 2em;
     line-height: 20px;
     padding: 0.3em;
@@ -100,4 +106,17 @@ a.brand, .nav a {
     background-repeat: repeat-x;
     border-color: #252525;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222', endColorstr='#ff111111', GradientType=0);
+}
+
+.nav-list > li > a {
+    color: #81981d;
+}
+
+.nav > li > a > img {
+    max-width: 100%;
+    padding-left: 0.5em;
+}
+
+.navbar .divider-vertical {
+    height: 52px;
 }

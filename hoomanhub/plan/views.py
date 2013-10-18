@@ -24,7 +24,7 @@ class HomeView(TemplateView):
 
 class ActionCreateView(CreateView):
     model = Action
-    success_url = reverse_lazy('plan:list')
+    success_url = reverse_lazy('plan:action_list')
     form_class = ActionForm
     #
     #def post(self, request, *args, **kwargs):

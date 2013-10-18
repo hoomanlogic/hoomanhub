@@ -1,0 +1,14 @@
+{% extends "control/base.html" %}
+
+{% block heading %}
+Settings
+{% endblock %}
+
+{%  block content %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="email" name="Email" />
+    <input type="submit" value="Save" />
+</form>
+{%  endblock %}

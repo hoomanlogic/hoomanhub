@@ -19,5 +19,6 @@ urlpatterns = patterns('',
     url(r'^hoomanhub/monitor/', include('monitor.urls', namespace='monitor')),
     #connect
     url(r'^hoomanhub/connect/', include('connect.urls', namespace='connect')),
-
+    #control
+    url(r'^hoomanhub/control/', include('control.urls', namespace='control')),
 )
