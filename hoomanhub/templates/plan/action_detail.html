@@ -1,10 +1,32 @@
 {% extends "plan/base.html" %}
 {% block title %}Edit Action{% endblock title %}
-{% block heading %}Edit An Action{% endblock %}
+{% block heading %}Edit Existing Action{% endblock %}
+
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" href="/static/css/autosuggest.css" />
+{% endblock stylesheets %}
 
 {% block content %}
 {{ block.super }}
-<table>
-
-</table>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save">
+</form>
 {% endblock content %}
+
+{% block jscript %}
+{{ block.super }}
+<script src="/static/js/jqueryautosuggest.js"></script>
+<script>
+    $(function() {
+        //"http://127.0.0.1:8000/hoomanhub/plan/tags/"
+        var jqxhr = $.ajax( "http://127.0.0.1:8000/hoomanhub/plan/tags/" ).done(function() {
+            $("input[name=tags]").autoSuggest(JSON.parse(jqxhr.responseText), {selectedItemProp: "name", searchObjProps: "name"});
+        })
+
+
+    });
+</script>
+{% endblock %}

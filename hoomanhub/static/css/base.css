@@ -1,6 +1,21 @@
 @import url(http://fonts.googleapis.com/css?family=Squada+One);
 @import url(http://fonts.googleapis.com/css?family=Scada);
 
+/* bootstrap restyling */
+.table-striped tbody > tr:nth-child(odd) > td, .table-striped tbody > tr:nth-child(odd) > th {
+    background-color: #f3f3f3;
+}
+
+.table-hover tbody tr:hover > td,
+.table-hover tbody tr:hover > th {
+  background-color: #ddffaa;
+}
+
+.float-right {
+    float: right;
+}
+
+
 /* background of site */
 body {
     background-image: url("../img/background.png");
@@ -10,7 +25,6 @@ div.content {
     font-size: 1.2em;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-
 
 #user-settings {
     float: right;

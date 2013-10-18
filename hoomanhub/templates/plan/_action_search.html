@@ -2,7 +2,6 @@
 {%  comment %}
     Usage: {% include "plan/_action_search.html" %}
 {%  endcomment %}
-<form action="{%  url "plan:action_list" %}" method="GET">
-    <input type="text" name="q" />
-    <button type="submit">search</button>
+<form class="float-right" action="{%  url "plan:action_list" %}" method="GET">
+    <input id="action-searchbox" type="text" name="q" />
 </form>

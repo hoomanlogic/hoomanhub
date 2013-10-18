@@ -1,21 +1,74 @@
 {% extends "plan/base.html" %}
 {% block title %}View Actions{% endblock title %}
-{% block heading %}View Actions{% endblock %}
+{% block heading %}View Actions{% include "plan/_action_search.html" %}{% endblock %}
 
 {% block content %}
 {{ block.super }}
-<table>
+<table class="table table-striped table-bordered table-hover table-condensed">
     <thead>
+        <th style="width: 1%"></th>
+        <th style="width: 1%"></th>
         <th>Action</th>
-        <th>Status</th>
+        <th></th>
     </thead>
     <tbody>
-        {% for action in object_list %}
-        <tr>
-            <td>{{ action.name }}</td>
-            <td>{{ action.statusdesc }}</td>
-        </tr>
-        {% endfor %}
+    {% for action in object_list %}
+    <tr id="{{ action.id }}">
+        <td onclick="deleteAction({{ action.id }});"><i class="icon-remove"></i></td>
+        <td><i class="{% if action.status == 0 %}icon-exclamation-sign{% elif action.status == 1 %}icon-forward{% elif action.status == 2 %}icon-check{% else %}icon-trash{% endif %}"></i></td>
+        <td{% if action.status == 2 %} style="text-decoration: line-through"{% endif %}>{{ action.name }}</td>
+        <td>{% for target in action.targets.all %}{{ target.text }}{% endfor %}</td>
+    </tr>
+    {% endfor %}
     </tbody>
 </table>
 {% endblock content %}
+
+{% block jscript %}
+{{ block.super }}
+<script>
+$(function() {
+    $("tr").dblclick(function() {
+        if (this.id != null && this.id != '')
+            window.location.href = "/hoomanhub/plan/action/update/" + this.id;
+    });
+    $("#action-searchbox").val("{{ query }}")
+});
+
+function deleteAction(id) {
+{#    if (prompt("Type 'DELETE' to delete this action.") == 'DELETE') {#}
+{#        var $row = $("#" + id)#}
+{#        $.ajax({url: "/hoomanhub/plan/action/delete/" + $row[0].id})#}
+{#            .done(function( data ) {#}
+{#                alert(data + 'Deleted successfully!');#}
+{#                $row.remove();#}
+{#        });#}
+{#    }#}
+
+    var csrftoken = getCookie('csrftoken');
+
+    $.ajaxSetup({
+        crossDomain: false, // obviates need for sameOrigin test
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type)) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+    var $row = $("#" + id);
+    $.post("/hoomanhub/plan/action/delete/" + $row[0].id + "/", function(data) {
+        if (data.result == "ok" || data.result == undefined) {
+            $row.remove();
+        } else {
+            // handle error processed by server here
+            alert(data.result);
+        }
+    }).fail(function() {
+        // handle unexpected error here
+        alert("error");
+    });
+    return false;
+}
+</script>
+{% endblock %}
