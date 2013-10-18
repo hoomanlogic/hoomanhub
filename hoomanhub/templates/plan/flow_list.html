@@ -1,0 +1,19 @@
+{% extends "plan/base.html" %}
+{% block title %}View Flows{% endblock title %}
+{% block heading %}View Flows{% endblock %}
+
+{% block content %}
+{{ block.super }}
+<table>
+    <thead>
+        <th>Flow</th>
+    </thead>
+    <tbody>
+        {% for flow in object_list %}
+        <tr>
+            <td>{{ flow.name }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

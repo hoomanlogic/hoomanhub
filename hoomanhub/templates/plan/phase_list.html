@@ -1,0 +1,19 @@
+{% extends "plan/base.html" %}
+{% block title %}View Phases{% endblock title %}
+{% block heading %}View Phases{% endblock %}
+
+{% block content %}
+{{ block.super }}
+<table>
+    <thead>
+        <th>Phase</th>
+    </thead>
+    <tbody>
+        {% for phase in object_list %}
+        <tr>
+            <td>{{ phase.name }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

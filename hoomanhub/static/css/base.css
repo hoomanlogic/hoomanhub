@@ -73,13 +73,25 @@ a.brand, .nav a {
 }
 
 .nav li {
+    padding-top: 2px;
     font-weight: normal;
-    font-size: 1.333em;
+    font-size: 1.1em;
+}
+
+.nav li a img {
+
+    height: 28px;
 }
 
 .nav li.active {
+    padding-top: 0;
     font-weight: bold;
     font-size: 1.5em;
+}
+
+.nav li.active a img {
+
+    height: 32px;
 }
 
 .heading {
